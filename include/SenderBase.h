@@ -47,7 +47,7 @@ public:
 	 *    metric's counter to inc
 	 * @return void
 	 */
-	virtual void addMetric(const std::string& name, long int count = 0)=0;
+	virtual void addMetric(const std::string& name, long int count = 0) = 0;
 
 };
 
