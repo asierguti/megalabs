@@ -23,7 +23,9 @@ private:
 	std::mutex _mutex; /**< metrcis main mutex */
 public:
 	// destructor
-	virtual ~SenderBase();
+	virtual ~SenderBase() {}
+	// SenderBase(const SenderBase&)  {}
+ //    SenderBase(SenderBase&&) {}
 
 	/**
 	 * Sends metrics

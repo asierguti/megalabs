@@ -4,17 +4,12 @@ project(monitoring)
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-# Instruct CMake to run moc automatically when needed.
+# include (SenderInstance.h)
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_CXX_FLAGS "-fPIC")
-# Find the QtWidgets library
-#find_package(Qt5Widgets)
-find_package(Qt5Core)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_CXX_FLAGS "-g -fsanitize=address -fno-omit-frame-pointer -fPIC -std=c++14 -Wall -pedantic")
+find_package (Threads)
+find_package(Qt5 COMPONENTS Core Network)
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-# Tell CMake to create the helloworld executable
-# add_executable(helloworld WIN32 main.cpp)
 
-# Use the Widgets module from Qt 5.
-# target_link_libraries(helloworld Qt5::Widgets)
-
-subdirs(src)
+subdirs(src test)
