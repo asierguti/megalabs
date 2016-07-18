@@ -32,8 +32,6 @@ int main(int argc, char* argv[]) {
         std::thread(&HandlerBase::run, HandlerBase(*ptr)));
   }
 
-  std::cout << "Yahoo" << std::endl;
-
   for (auto& t : running_threads) {
     t.join();
   }

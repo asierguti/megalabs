@@ -1,5 +1,5 @@
 /*
- * SenderBase.h
+ * SenderInstance.h
  *
  *  Created on: July 15, 2016
  *      Author: Asier Gutierrez <asierguti@gmail.com>
@@ -26,18 +26,17 @@ class SenderInstance : public QObject,
   std::chrono::high_resolution_clock::time_point _time;
 
   std::unique_ptr<SenderNetwork> _SenderNetwork;
-  std::thread _senderThread;
 
  public:
   virtual void run() {}
   void init();
 
-  std::list<MetricBody> getMetrics() { return _metrics; }
+  std::list<MetricBody> getMetrics();
 
   SenderInstance();
-  virtual ~SenderInstance() { _senderThread.join(); }
+  virtual ~SenderInstance() {}
 
-  SenderInstance(const SenderInstance& other){};
+  SenderInstance(const SenderInstance& other) = delete;
   virtual void addMetric(const std::string& name, long int count = 0);
 };
 

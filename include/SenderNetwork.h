@@ -1,5 +1,5 @@
 /*
- * SenderBase.h
+ * SenderNetwork.h
  *
  *  Created on: July 15, 2016
  *      Author: Asier Gutierrez <asierguti@gmail.com>
@@ -36,7 +36,7 @@ class SenderNetwork : public QObject {
  public slots:
   virtual void run();
   void finished() {}
-  void sendAlive();
+  void readHandler();
   void onConnected();
   void handleWrite(qint64);
 };

@@ -1,5 +1,5 @@
 /*
- * SenderBase.h
+ * SenderNetwork.h
  *
  *  Created on: July 15, 2016
  *      Author: Asier Gutierrez <asierguti@gmail.com>
@@ -11,14 +11,11 @@
 #include <iostream>
 #include <memory>
 
-void SenderNetwork::sendAlive() {
+void SenderNetwork::readHandler() {
   while (_pSocket->bytesAvailable()) {
     auto now = std::chrono::high_resolution_clock::now();
     auto delta = now - _time;
-    std::cout << std::chrono::duration_cast<std::chrono::seconds>(delta).count()
-              << std::endl;
     auto received = _pSocket->readAll();
-    std::cout << received.data() << std::endl;
     if (received.contains("Command:Ping")) {
       _pSocket->write("Command:Pong\r\n");
       _pSocket->waitForBytesWritten();
@@ -43,7 +40,6 @@ void SenderNetwork::sendAlive() {
     }
     _pSocket->waitForReadyRead();
   }
-  std::cout << "read handle end" << std::endl;
 }
 
 void SenderNetwork::onConnected() { return; }
@@ -60,11 +56,8 @@ void SenderNetwork::run() {
   if (!_pSocket->waitForConnected(5000)) {
     std::cout << "Error: ";
   }
-  std::cout << "connected" << std::endl;
 
   QByteArray data("test.count:1\r\n\\");
-  std::cout << "Sent" << std::endl;
   _time = std::chrono::system_clock::now();
-  bool d = _pSocket->waitForReadyRead();
-  std::cout << "Starting the thread" << std::endl;
+  _pSocket->waitForReadyRead();
 }

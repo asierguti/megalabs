@@ -12,13 +12,19 @@
 SenderInstance::SenderInstance() {}
 
 void SenderInstance::init() {
-  auto x = new SenderNetwork(shared_from_this());
-  auto t = new QThread();
-  x->moveToThread(t);
-  connect(t, SIGNAL(started()), x, SLOT(run()));
-  connect(x, SIGNAL(finished()), t, SLOT(quit()));
-  t->start();
+  auto sender = new SenderNetwork(shared_from_this());
+  auto thread = new QThread();
+  sender->moveToThread(thread);
+  connect(thread, SIGNAL(started()), sender, SLOT(run()));
+  thread->start();
 }
+
+std::list<MetricBody> SenderInstance::getMetrics() {
+ std::list<MetricBody> temp_list {};
+ temp_list.splice (temp_list.begin(), _metrics);
+ return temp_list;
+}
+
 
 void SenderInstance::addMetric(const std::string& name, long int count) {
   if (count < 0) {
