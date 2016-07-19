@@ -44,7 +44,6 @@ void SenderInstance::addMetric(const std::string& name, long int count) {
 
   if (it != end_iterator) {
     it->count += count;
-    std::cout << "count " << it->count << std::endl;
   } else {
     MetricBody metric{name, count};
     _metrics.push_back(metric);

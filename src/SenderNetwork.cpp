@@ -1,5 +1,5 @@
 /*
- * SenderNetwork.h
+ * SenderNetworkF.h
  *
  *  Created on: July 15, 2016
  *      Author: Asier Gutierrez <asierguti@gmail.com>
@@ -33,7 +33,7 @@ void SenderNetwork::readHandler() {
         to_send.append("\r\n");
       }
 
-      QByteArray data(to_send.c_str());  //"test.count:1\r\n");
+      QByteArray data(to_send.c_str());
       _pSocket->write(data);
 
       _time = now;
@@ -48,7 +48,7 @@ void SenderNetwork::handleWrite(qint64) { return; }
 
 void SenderNetwork::run() {
   _pSocket = new QTcpSocket(this);
-  connect(_pSocket, SIGNAL(readyRead()), this, SLOT(sendAlive()));
+  connect(_pSocket, SIGNAL(readyRead()), this, SLOT(readHandler()));
   connect(_pSocket, SIGNAL(connected()), this, SLOT(onConnected()));
   connect(_pSocket, SIGNAL(bytesWritten(qint64)), this,
           SLOT(handleWrite(qint64)));
